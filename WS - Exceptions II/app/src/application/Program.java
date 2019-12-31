@@ -1,6 +1,7 @@
 package application;
 
-import java.util.InputMismatchException;
+import java.io.File;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Program {
@@ -13,35 +14,21 @@ public class Program {
 	}
 
 	public static void method1() {
-		System.out.println("*** METHOD 1 STARTS ***");
-		method2();
-		System.out.println("*** METHOD 1 ENDS ***");
 
-	}
-
-	public static void method2() {
-		System.out.println("*** METHOD 2 STARTS ***");
-		Scanner sc = new Scanner(System.in);
-
+		File file = new File("C:\\temp\\in.txt");
+		Scanner sc = null;
 		try {
-			String[] vect = sc.nextLine().split(" ");
-			int position = sc.nextInt();
-			System.out.println("Name for position " + position + " is " + vect[position]);
+			sc = new Scanner(file);
+			while (sc.hasNextLine()) {
+				System.out.println(sc.nextLine());
+			}
+		} catch (IOException e) {
+			System.out.println("Error opening file: " + e.getMessage());
+		} finally {
+			if (sc != null) {
+				sc.close();
+			}
 
-		} catch (ArrayIndexOutOfBoundsException e) {
-
-			System.out.println("Invalid position");
-			e.printStackTrace();
-			sc.next();
-
-		} catch (InputMismatchException e) {
-
-			System.out.println("Input Error");
 		}
-
-		System.out.println("*** METHOD 2 ENDS ***");
-		sc.close();
-
 	}
-
 }
